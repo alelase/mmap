@@ -20,6 +20,7 @@ const Marker: React.FC<
   const map = useContext(MapContext);
 
   useEffect(() => {
+    console.log('entra en useEffect marker');
     if (!marker) {
       setMarker(new google.maps.Marker());
     }
@@ -33,6 +34,7 @@ const Marker: React.FC<
   }, [marker]);
 
   useEffect(() => {
+    console.log('entra en useEffect Marker!');
     if (marker && onClick) {
       marker.addListener('click', onClick);
     }
@@ -43,6 +45,16 @@ const Marker: React.FC<
       //google.maps.event.addListener(marker, 'rightclick', onRightClick);
     }
   }, [onClick, onRightClick]);
+
+  useEffect(() => {
+    console.log('entra en useEffect separado para onRightClick!');
+
+    if (marker && onRightClick) {
+      console.log('add listener to right click!');
+      marker.addListener('rightclick', onRightClick);
+      //google.maps.event.addListener(marker, 'rightclick', onRightClick);
+    }
+  }, [onRightClick]);
 
   useEffect(() => {
     if (marker) {
