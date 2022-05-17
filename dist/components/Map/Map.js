@@ -9,16 +9,15 @@ var __rest = (this && this.__rest) || function (s, e) {
     }
   return t;
 };
-exports.__esModule = true;
-var react_1 = require("react");
-var MapContext_1 = require("../../contexts/MapContext");
-var useDeepCompareEffectForMaps_1 = require("./hooks/useDeepCompareEffectForMaps");
+import React, { useEffect, useRef, useState } from 'react';
+import MapContext from '../../contexts/MapContext';
+import { useDeepCompareEffectForMaps } from './hooks/useDeepCompareEffectForMaps';
 var Map = function (_a) {
-  var onClick = _a.onClick, onRightClick = _a.onRightClick, onIdle = _a.onIdle, onBoundsChanged = _a.onBoundsChanged, onZoomChanged = _a.onZoomChanged, children = _a.children, style = _a.style, mapId = _a.mapId, options = __rest(_a, ["onClick", "onRightClick", "onIdle", "onBoundsChanged", "onZoomChanged", "children", "style", "mapId"]);
+  var onClick = _a.onClick, onIdle = _a.onIdle, onBoundsChanged = _a.onBoundsChanged, onZoomChanged = _a.onZoomChanged, children = _a.children, style = _a.style, mapId = _a.mapId, options = __rest(_a, ["onClick", "onIdle", "onBoundsChanged", "onZoomChanged", "children", "style", "mapId"]);
   // [START maps_react_map_component_add_map_hooks]
-  var ref = (0, react_1.useRef)(null);
-  var _b = (0, react_1.useState)(), map = _b[0], setMap = _b[1];
-  (0, react_1.useEffect)(function () {
+  var ref = useRef(null);
+  var _b = useState(), map = _b[0], setMap = _b[1];
+  useEffect(function () {
     if (ref.current && !map) {
       setMap(new window.google.maps.Map(ref.current, { mapId: mapId }));
     }
@@ -27,23 +26,20 @@ var Map = function (_a) {
   // [START maps_react_map_component_options_hook]
   // because React does not do deep comparisons, a custom hook is used
   // see discussion in https://github.com/googlemaps/js-samples/issues/946
-  (0, useDeepCompareEffectForMaps_1.useDeepCompareEffectForMaps)(function () {
+  useDeepCompareEffectForMaps(function () {
     if (map) {
       map.setOptions(options);
     }
   }, [map, options]);
   // [END maps_react_map_component_options_hook]
   // [START maps_react_map_component_event_hooks]
-  (0, react_1.useEffect)(function () {
+  useEffect(function () {
     if (map) {
-      ['click', 'rightclick', 'idle', 'bounds_changed'].forEach(function (eventName) {
+      ['click', 'idle', 'bounds_changed'].forEach(function (eventName) {
         return google.maps.event.clearListeners(map, eventName);
       });
       if (onClick) {
         map.addListener('click', onClick);
-      }
-      if (onRightClick) {
-        map.addListener('rightclick', onRightClick);
       }
       if (onIdle) {
         map.addListener('idle', function () { return onIdle(map); });
@@ -59,13 +55,13 @@ var Map = function (_a) {
         });
       }
     }
-  }, [map, onClick, onRightClick, onIdle, onBoundsChanged, onZoomChanged]);
+  }, [map, onClick, onIdle, onBoundsChanged, onZoomChanged]);
   // [END maps_react_map_component_event_hooks]
   // [START maps_react_map_component_return]
-  return (<MapContext_1["default"].Provider value={map}>
-    <div ref={ref} style={style}/>
-  {children}
-</MapContext_1["default"].Provider>);
+  return (React.createElement(MapContext.Provider, { value: map },
+    React.createElement("div", { ref: ref, style: style }),
+    children));
   // [END maps_react_map_component_return]
 };
-exports["default"] = Map;
+export default Map;
+//# sourceMappingURL=Map.js.map

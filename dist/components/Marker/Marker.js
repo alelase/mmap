@@ -20,15 +20,13 @@ var __rest = (this && this.__rest) || function (s, e) {
     }
   return t;
 };
-exports.__esModule = true;
-var react_1 = require("react");
-var MapContext_1 = require("../../contexts/MapContext");
+import { useContext, useEffect, useState } from 'react';
+import MapContext from '../../contexts/MapContext';
 var Marker = function (_a) {
-  var onClick = _a.onClick, onRightClick = _a.onRightClick, infoWindowContent = _a.infoWindowContent, showInfoWindow = _a.showInfoWindow, options = __rest(_a, ["onClick", "onRightClick", "infoWindowContent", "showInfoWindow"]);
-  var _b = (0, react_1.useState)(), marker = _b[0], setMarker = _b[1];
-  var map = (0, react_1.useContext)(MapContext_1["default"]);
-  (0, react_1.useEffect)(function () {
-    console.log('entra en useEffect marker');
+  var onClick = _a.onClick, infoWindowContent = _a.infoWindowContent, showInfoWindow = _a.showInfoWindow, options = __rest(_a, ["onClick", "infoWindowContent", "showInfoWindow"]);
+  var _b = useState(), marker = _b[0], setMarker = _b[1];
+  var map = useContext(MapContext);
+  useEffect(function () {
     if (!marker) {
       setMarker(new google.maps.Marker());
     }
@@ -39,31 +37,17 @@ var Marker = function (_a) {
       }
     };
   }, [marker]);
-  (0, react_1.useEffect)(function () {
-    console.log('entra en useEffect Marker!');
+  useEffect(function () {
     if (marker && onClick) {
       marker.addListener('click', onClick);
     }
-    if (marker && onRightClick) {
-      console.log('add listener to right click!');
-      marker.addListener('rightclick', onRightClick);
-      //google.maps.event.addListener(marker, 'rightclick', onRightClick);
-    }
-  }, [onClick, onRightClick]);
-  (0, react_1.useEffect)(function () {
-    console.log('entra en useEffect separado para onRightClick!');
-    if (marker && onRightClick) {
-      console.log('add listener to right click!');
-      marker.addListener('rightclick', onRightClick);
-      //google.maps.event.addListener(marker, 'rightclick', onRightClick);
-    }
-  }, [onRightClick]);
-  (0, react_1.useEffect)(function () {
+  }, [onClick]);
+  useEffect(function () {
     if (marker) {
       marker.setOptions(__assign(__assign({}, options), { map: map }));
     }
   }, [marker, options]);
-  (0, react_1.useEffect)(function () {
+  useEffect(function () {
     if (!showInfoWindow)
       return;
     var infoWindow = new google.maps.InfoWindow({
@@ -79,4 +63,5 @@ var Marker = function (_a) {
   }, [showInfoWindow, infoWindowContent, marker, map]);
   return null;
 };
-exports["default"] = Marker;
+export default Marker;
+//# sourceMappingURL=Marker.js.map

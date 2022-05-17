@@ -15,16 +15,16 @@ interface MapProps extends google.maps.MapOptions {
 }
 
 const Map: React.FC<MapProps> = ({
-  onClick,
-  onRightClick,
-  onIdle,
-  onBoundsChanged,
-  onZoomChanged,
-  children,
-  style,
-  mapId,
-  ...options
-}) => {
+                                   onClick,
+                                   onRightClick,
+                                   onIdle,
+                                   onBoundsChanged,
+                                   onZoomChanged,
+                                   children,
+                                   style,
+                                   mapId,
+                                   ...options
+                                 }) => {
   // [START maps_react_map_component_add_map_hooks]
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
