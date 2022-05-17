@@ -49,7 +49,7 @@ const Map: React.FC<MapProps> = ({
   // [START maps_react_map_component_event_hooks]
   useEffect(() => {
     if (map) {
-      ['click', 'idle', 'bounds_changed'].forEach((eventName) =>
+      ['click', 'rightclick', 'idle', 'bounds_changed'].forEach((eventName) =>
         google.maps.event.clearListeners(map, eventName)
       );
 
