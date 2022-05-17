@@ -15,6 +15,7 @@ interface ClusterMarkerOptions extends google.maps.MarkerOptions {
   position: google.maps.LatLngLiteral;
   count: number;
   onClick: () => void;
+  onRightClick: () => void;
 }
 
 const ClusterMarker: React.FC<ClusterMarkerOptions> = ({
