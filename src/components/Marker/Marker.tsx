@@ -38,8 +38,9 @@ const Marker: React.FC<
     }
 
     if (marker && onRightClick) {
-      //marker.addListener('rightclick', onRightClick);
-      google.maps.event.addListener(marker, 'rightclick', onRightClick);
+      console.log('add listener to right click!');
+      marker.addListener('rightclick', onRightClick);
+      //google.maps.event.addListener(marker, 'rightclick', onRightClick);
     }
   }, [onClick, onRightClick]);
 
