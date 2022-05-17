@@ -9,7 +9,13 @@ const Marker: React.FC<
     infoWindowContent?: string;
     showInfoWindow?: boolean;
   }
-> = ({ onClick, onRightClick, infoWindowContent, showInfoWindow, ...options }) => {
+> = ({
+  onClick,
+  onRightClick,
+  infoWindowContent,
+  showInfoWindow,
+  ...options
+}) => {
   const [marker, setMarker] = useState<google.maps.Marker>();
   const map = useContext(MapContext);
 
