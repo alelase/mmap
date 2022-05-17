@@ -21,6 +21,7 @@ const ClusterMarker: React.FC<ClusterMarkerOptions> = ({
   position,
   count,
   onClick,
+  onRightClick,
   ...options
 }) => {
   const clusterOptions = {
@@ -43,6 +44,7 @@ const ClusterMarker: React.FC<ClusterMarkerOptions> = ({
       label={clusterOptions.label}
       zIndex={clusterOptions.zIndex}
       onClick={onClick}
+      onRightClick={onRightClick}
       {...options}
     />
   );

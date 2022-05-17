@@ -7,6 +7,7 @@ import { useDeepCompareEffectForMaps } from './hooks/useDeepCompareEffectForMaps
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
   onClick?: (e: google.maps.MapMouseEvent) => void;
+  onRightClick?: (e: google.maps.MapMouseEvent) => void;
   onIdle?: (map: google.maps.Map) => void;
   onBoundsChanged?: (bounds: google.maps.LatLngBounds | undefined) => void;
   onZoomChanged?: (zoom: number | undefined) => void;
@@ -15,6 +16,7 @@ interface MapProps extends google.maps.MapOptions {
 
 const Map: React.FC<MapProps> = ({
   onClick,
+  onRightClick,
   onIdle,
   onBoundsChanged,
   onZoomChanged,
@@ -55,6 +57,10 @@ const Map: React.FC<MapProps> = ({
         map.addListener('click', onClick);
       }
 
+      if (onRightClick) {
+        map.addListener('rightclick', onRightClick);
+      }
+
       if (onIdle) {
         map.addListener('idle', () => onIdle(map));
       }
@@ -71,7 +77,7 @@ const Map: React.FC<MapProps> = ({
         });
       }
     }
-  }, [map, onClick, onIdle, onBoundsChanged, onZoomChanged]);
+  }, [map, onClick, onRightClick, onIdle, onBoundsChanged, onZoomChanged]);
   // [END maps_react_map_component_event_hooks]
 
   // [START maps_react_map_component_return]
