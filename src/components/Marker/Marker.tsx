@@ -5,10 +5,11 @@ import MapContext from '../../contexts/MapContext';
 const Marker: React.FC<
   google.maps.MarkerOptions & {
     onClick?: () => void;
+    onRightClick?: () => void;
     infoWindowContent?: string;
     showInfoWindow?: boolean;
   }
-> = ({ onClick, infoWindowContent, showInfoWindow, ...options }) => {
+> = ({ onClick, onRightClick, infoWindowContent, showInfoWindow, ...options }) => {
   const [marker, setMarker] = useState<google.maps.Marker>();
   const map = useContext(MapContext);
 
@@ -29,7 +30,11 @@ const Marker: React.FC<
     if (marker && onClick) {
       marker.addListener('click', onClick);
     }
-  }, [onClick]);
+
+    if (marker && onRightClick) {
+      marker.addListener('rightclick', onRightClick);
+    }
+  }, [onClick, onRightClick]);
 
   useEffect(() => {
     if (marker) {
